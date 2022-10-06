@@ -19,8 +19,23 @@
          <button class="random-sketch-mode">Random</button>
       </div>
 
-      <div class="playing-field"></div>
+      <div class="field-control">
+         <button id="decrease">-</button>
+         <p>1</p>
+         <input
+            type="range"
+            min="1"
+            max="32"
+            value="16"
+            name="field-size-slider"
+            class="field-slider"
+         />
+         <p>32</p>
+         <button id="increase">+</button>
+      </div>
 
+      <div class="playing-field"></div>
+      <footer>Copyright© Petromir Kolev 2022</footer>
       <script src="script.js"></script>
    </body>
 </html>
