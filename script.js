@@ -1,5 +1,5 @@
 'use strict';
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const slider = document.querySelector('input');
 const playingField = document.querySelector('.playing-field');
 const gridElement = '<div class="grid-element"></div>';
@@ -7,6 +7,8 @@ const gridTemplate = 'auto ';
 const increaseSliderButton = document.querySelector('#increase');
 const decreaseSliderButton = document.querySelector('#decrease');
 const controlPanel = document.querySelector('.controls');
+const btnClear = document.querySelector('.btn-clear');
+const btnRandom = document.querySelector('.btn-random');
 const randomColors = [
    '#ff0000',
    '#ffa500',
@@ -18,12 +20,9 @@ const randomColors = [
 ];
 let currentMode;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+////////////////
 // Game logic //
-
+////////////////
 // Update the sketch grid based on slider position
 const updateSketchGrid = function () {
    playingField.style.gridTemplateRows = gridTemplate.repeat(slider.value);
@@ -31,32 +30,32 @@ const updateSketchGrid = function () {
    playingField.innerHTML = gridElement.repeat(slider.value * slider.value);
 };
 
-// Set color to rainbow colors
-const rainbowColor = function () {
-   return randomColors[Math.trunc(Math.random() * randomColors.length)];
-};
-
+// Handle drawing modes and erase button logic
 const drawingMode = function () {
-   switch (currentMode) {
-      case 'btn-black':
-         return 'black';
-      case 'btn-grayscale':
-         return 'gray';
-      case 'btn-rainbow':
-         return rainbowColor();
-      case 'btn-clear':
-         return clearGrid();
-      case 'btn-random':
-         return randomSketch();
-      case 'btn-erase':
-         1;
-         break;
-      default:
-         return 'gray';
+   if (currentMode !== 'btn-clear') {
+      switch (currentMode) {
+         case 'btn-black':
+            return 'black';
+         case 'btn-grayscale':
+            return 'gray';
+         case 'btn-erase':
+            return '';
+         default:
+            return 'gray';
+      }
    }
 };
 
-// Event listeners
+// Add grayscale mode
+///////////////////  TO DO  /////////////////////
+
+/////////////////////
+// Event listeners //
+/////////////////////
+// Get slider value from mouse drag and update grid
+slider.addEventListener('input', function () {
+   updateSketchGrid();
+});
 // Increase slider value by button
 increaseSliderButton.addEventListener('click', () => {
    slider.value++;
@@ -67,30 +66,66 @@ decreaseSliderButton.addEventListener('click', () => {
    slider.value--;
    updateSketchGrid();
 });
-// Get slider value from mouse drag
-slider.addEventListener('input', function () {
-   updateSketchGrid();
-});
-
 // Add color to grid element when mouse click and over
 playingField.addEventListener('mouseover', function (e) {
    const gridBox = e.target.style;
    if (e.buttons !== 1 || !e.target.classList.contains('grid-element')) {
       return;
-   } else {
-      gridBox.backgroundColor = drawingMode();
    }
+   gridBox.backgroundColor = drawingMode();
 });
-// Handle menu buttons click and store current button class as a variable
+// Generate random sketch
+btnRandom.addEventListener('click', function () {
+   [...playingField.children].map(child => {
+      child.style.backgroundColor = rainbowColor();
+   });
+});
+
+// Clear sketch pad
+///////////////////  TO DO  /////////////////////
+btnClear.addEventListener('click', function () {
+   btnClear.classList.remove('btn-clicked');
+
+   [...playingField.children].map(child => {
+      currentMode = '';
+      child.style.backgroundColor = '';
+   });
+});
+
+///////////////////  TO DO  /////////////////////
+// Handle menu button clicks and store current button class as a variable
 controlPanel.addEventListener('click', function (e) {
    if (!e.target.classList.contains('btn')) return;
-
-   const buttons = [...controlPanel.children];
-   buttons.map(e => {
-      e.classList.remove('btn-clicked');
-   });
+   //    if (e.target.classList.contains('btn-clear')) {
+   //       removeBtnClass();
+   //       [...playingField.children].map(child => {
+   //          currentMode = '';
+   //          child.style.backgroundColor = '';
+   //       });
+   //       return;
+   //    }
+   removeBtnClass();
    e.target.classList.add('btn-clicked');
    currentMode = e.target.classList[1];
 });
+
+/////////////
+// Helpers //
+/////////////
+// Remove buttons class
+const removeBtnClass = function () {
+   [...controlPanel.children].map(child => {
+      child.classList.remove('btn-clicked');
+   });
+};
+// Clear grid
+const clearGrid = function () {
+   slider.value = 16;
+   updateSketchGrid();
+};
+// Set drawing color to rainbow colors
+const rainbowColor = function () {
+   return randomColors[Math.trunc(Math.random() * randomColors.length)];
+};
 
 updateSketchGrid();
