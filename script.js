@@ -39,8 +39,8 @@ const updateSketchGrid = function () {
 };
 // Add drawing modes and erase button funtionality
 const drawingMode = function () {
-   if (currentMode !== 'btn-clear') {
-      switch (currentMode) {
+   if (currentDrawingMode !== 'btn-clear') {
+      switch (currentDrawingMode) {
          case 'btn-black':
             return 'black';
          case 'btn-grayscale':

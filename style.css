@@ -8,13 +8,13 @@ background: EEE3CB
 buttons-menu: D7C0AE
 buttons and footer: 967E76 
 */
-
 * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
    background-color: #eee3cb;
 }
+/* Heading styling */
 .heading {
    font-family: 'Niconne';
    font-size: 7vw;
@@ -34,13 +34,12 @@ buttons and footer: 967E76
       7px 7px rgba(0, 0, 0, 1), 8px 8px rgba(0, 0, 0, 1),
       9px 9px rgba(0, 0, 0, 1), 10px 10px rgba(0, 0, 0, 1);
 }
-
+/* Buttons styling */
 .controls {
    background-color: #d7c0ae;
    height: 5vw;
    display: flex;
-   justify-content: center;
-   gap: 20px;
+   justify-content: space-evenly;
 }
 button {
    font-family: 'Luckiest Guy';
@@ -50,7 +49,7 @@ button {
    font-weight: 500;
    margin: auto 0;
    padding: 5px 0px 5px;
-   width: 150px;
+   width: 10vw;
    height: 70px;
    border-radius: 15px;
    border: none;
@@ -70,7 +69,7 @@ button:active {
    border: 5px solid black;
    color: black;
 }
-
+/* Slider styling */
 .field-control {
    font-family: 'Luckiest Guy';
    font-size: 1.5vw;
@@ -80,7 +79,6 @@ button:active {
    gap: 15px;
    align-items: center;
 }
-
 .field-slider {
    -webkit-appearance: none;
    appearance: none;
@@ -98,29 +96,30 @@ button:active {
    border-radius: 25px;
    background: black;
 }
-#increase,
-#decrease {
-   width: 70px;
-   height: 50px;
+.increase,
+.decrease {
+   width: 7vw;
+   height: 3vw;
 }
+/* Grid styling */
 .playing-field {
    display: grid;
    grid-gap: 1px;
    box-sizing: border-box;
-   margin: 15px auto;
+   margin: 0.5vw auto;
    border-radius: 10px;
    min-width: 200px;
    min-height: 200px;
-   width: 400px;
-   height: 400px;
+   width: 29vw;
+   height: 29vw;
 }
 .grid-element {
    background-color: #967e7650;
    border-radius: 3px;
 }
-
+/* Footer styling */
 footer {
    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    text-align: center;
-   margin-top: -5px;
+   margin: 0 auto;
 }
