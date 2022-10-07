@@ -42,7 +42,8 @@ buttons and footer: 967E76
    justify-content: space-evenly;
 }
 button {
-   font-family: 'Luckiest Guy';
+   /* font-family: 'Luckiest Guy'; */
+   font-family: monospace;
    color: rgb(106, 106, 106);
    background-color: #d7c0ae;
    font-size: 1.8vw;
@@ -119,7 +120,19 @@ button:active {
 }
 /* Footer styling */
 footer {
+<<<<<<< Updated upstream
    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    text-align: center;
    margin: 0 auto;
+=======
+   display: flex;
+   font-family: monospace;
+   align-items: center;
+   justify-content: center;
+   margin-top: -5px;
+   gap: 10px;
+}
+img:hover {
+   transform: scale(1.4);
+>>>>>>> Stashed changes
 }
