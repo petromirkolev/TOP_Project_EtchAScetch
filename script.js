@@ -1,11 +1,12 @@
 'use strict';
 
-const slider = document.querySelector('input');
+const sliderToggle = document.querySelector('input');
 const playingField = document.querySelector('.playing-field');
+const sliderButtons = [...document.querySelectorAll('.field-control > button')];
 const gridElement = '<div class="grid-element"></div>';
 const gridTemplate = 'auto ';
-const increaseSliderButton = document.querySelector('#increase');
-const decreaseSliderButton = document.querySelector('#decrease');
+const increaseSliderButton = document.querySelector('.increase');
+const decreaseSliderButton = document.querySelector('.decrease');
 const controlPanel = document.querySelector('.controls');
 const btnClear = document.querySelector('.btn-clear');
 const btnRandom = document.querySelector('.btn-random');
@@ -18,18 +19,25 @@ const randomColors = [
    '#4b0082',
    '#ee82ee',
 ];
-let currentMode;
+let gsColorMultiplier = 80;
+let currentDrawingMode;
 
 ////////////////
 // Game logic //
 ////////////////
 // Update the sketch grid based on slider position
 const updateSketchGrid = function () {
-   playingField.style.gridTemplateRows = gridTemplate.repeat(slider.value);
-   playingField.style.gridTemplateColumns = gridTemplate.repeat(slider.value);
-   playingField.innerHTML = gridElement.repeat(slider.value * slider.value);
+   playingField.style.gridTemplateRows = gridTemplate.repeat(
+      sliderToggle.value
+   );
+   playingField.style.gridTemplateColumns = gridTemplate.repeat(
+      sliderToggle.value
+   );
+   playingField.innerHTML = gridElement.repeat(
+      sliderToggle.value * sliderToggle.value
+   );
 };
-// Handle drawing modes and erase button logic
+// Add drawing modes and erase button funtionality
 const drawingMode = function () {
    if (currentMode !== 'btn-clear') {
       switch (currentMode) {
@@ -46,34 +54,31 @@ const drawingMode = function () {
       }
    }
 };
-
-// Add grayscale mode
-let multiplier = 80;
-// Color changing from #808080 (light gray) to #000000 (black)
+// Add grayscale mode (color changing from #808080 (light gray) to #000000 (black))
 const grayScaleMode = function () {
-   if (multiplier === 0) {
-      multiplier = 80;
+   if (gsColorMultiplier === 0) {
+      gsColorMultiplier = 80;
       return '#000000';
    }
-   multiplier--;
-   return `#${multiplier.toString().repeat(3)}`;
+   gsColorMultiplier--;
+   return `#${gsColorMultiplier.toString().repeat(3)}`;
 };
+// Control slider position by buttons
+sliderButtons.map(btn => {
+   btn.addEventListener('click', function (e) {
+      const currentBtnClass = e.target.classList;
+      currentBtnClass.contains('increase')
+         ? sliderToggle.value++
+         : sliderToggle.value--;
+      updateSketchGrid();
+   });
+});
 
 /////////////////////
 // Event listeners //
 /////////////////////
 // Get slider value from mouse drag and update grid
-slider.addEventListener('input', function () {
-   updateSketchGrid();
-});
-// Increase slider value by button
-increaseSliderButton.addEventListener('click', () => {
-   slider.value++;
-   updateSketchGrid();
-});
-// Decrease slider value by button
-decreaseSliderButton.addEventListener('click', () => {
-   slider.value--;
+sliderToggle.addEventListener('input', function () {
    updateSketchGrid();
 });
 // Add color to grid element when mouse click and over
@@ -90,33 +95,23 @@ btnRandom.addEventListener('click', function () {
       child.style.backgroundColor = rainbowColor();
    });
 });
-
 // Clear sketch pad
-///////////////////  TO DO  /////////////////////
-// btnClear.addEventListener('click', function () {
-//    btnClear.classList.remove('btn-clicked');
-
-//    [...playingField.children].map(child => {
-//       currentMode = '';
-//       child.style.backgroundColor = '';
-//    });
-// });
-
-///////////////////  TO DO  /////////////////////
+btnClear.addEventListener('click', function () {
+   removeBtnClass();
+   updateSketchGrid();
+});
 // Handle menu button clicks and store current button class as a variable
 controlPanel.addEventListener('click', function (e) {
-   if (!e.target.classList.contains('btn')) return;
-   //    if (e.target.classList.contains('btn-clear')) {
-   //       removeBtnClass();
-   //       [...playingField.children].map(child => {
-   //          currentMode = '';
-   //          child.style.backgroundColor = '';
-   //       });
-   //       return;
-   //    }
+   const currentBtnClass = e.target.classList;
+   if (
+      !currentBtnClass.contains('btn') ||
+      currentBtnClass.contains('btn-clear')
+   )
+      return;
+
    removeBtnClass();
-   e.target.classList.add('btn-clicked');
-   currentMode = e.target.classList[1];
+   currentBtnClass.add('btn-clicked');
+   currentDrawingMode = currentBtnClass[1];
 });
 
 /////////////
@@ -127,11 +122,6 @@ const removeBtnClass = function () {
    [...controlPanel.children].map(child => {
       child.classList.remove('btn-clicked');
    });
-};
-// Clear grid
-const clearGrid = function () {
-   slider.value = 16;
-   updateSketchGrid();
 };
 // Set drawing color to rainbow colors
 const rainbowColor = function () {
