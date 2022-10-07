@@ -3,13 +3,11 @@
 const sliderToggle = document.querySelector('input');
 const playingField = document.querySelector('.playing-field');
 const sliderButtons = [...document.querySelectorAll('.field-control > button')];
-const gridElement = '<div class="grid-element"></div>';
-const gridTemplate = 'auto ';
-const increaseSliderButton = document.querySelector('.increase');
-const decreaseSliderButton = document.querySelector('.decrease');
 const controlPanel = document.querySelector('.controls');
 const btnClear = document.querySelector('.btn-clear');
 const btnRandom = document.querySelector('.btn-random');
+const gridElement = '<div class="grid-element"></div>';
+const gridTemplate = 'auto ';
 const randomColors = [
    '#ff0000',
    '#ffa500',
@@ -67,6 +65,7 @@ const grayScaleMode = function () {
 sliderButtons.map(btn => {
    btn.addEventListener('click', function (e) {
       const currentBtnClass = e.target.classList;
+
       currentBtnClass.contains('increase')
          ? sliderToggle.value++
          : sliderToggle.value--;

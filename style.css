@@ -41,6 +41,14 @@ buttons and footer: 967E76
    display: flex;
    justify-content: space-evenly;
 }
+/* .btn-click-hover {
+   color: black;
+   font-weight: 900;
+   border-radius: 5px;
+   width: 5vw;
+   height: 2.5vw;
+   font-size: 1.5vw;
+} */
 button {
    /* font-family: 'Luckiest Guy'; */
    font-family: monospace;
@@ -97,10 +105,13 @@ button:active {
    border-radius: 25px;
    background: black;
 }
-.increase,
-.decrease {
-   width: 2vw;
-   height: 1vw;
+
+.slider-btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 5vw;
+   height: 2.5vw;
 }
 /* Grid styling */
 .playing-field {
@@ -122,8 +133,8 @@ button:active {
 footer {
    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    text-align: center;
-   margin: 0 auto;
    display: flex;
+   padding-top: 10px;
    font-family: monospace;
    align-items: center;
    justify-content: center;
