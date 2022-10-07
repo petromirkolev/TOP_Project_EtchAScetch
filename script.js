@@ -29,7 +29,6 @@ const updateSketchGrid = function () {
    playingField.style.gridTemplateColumns = gridTemplate.repeat(slider.value);
    playingField.innerHTML = gridElement.repeat(slider.value * slider.value);
 };
-
 // Handle drawing modes and erase button logic
 const drawingMode = function () {
    if (currentMode !== 'btn-clear') {
@@ -37,7 +36,9 @@ const drawingMode = function () {
          case 'btn-black':
             return 'black';
          case 'btn-grayscale':
-            return 'gray';
+            return grayScaleMode();
+         case 'btn-rainbow':
+            return rainbowColor();
          case 'btn-erase':
             return '';
          default:
@@ -47,7 +48,16 @@ const drawingMode = function () {
 };
 
 // Add grayscale mode
-///////////////////  TO DO  /////////////////////
+let multiplier = 80;
+// Color changing from #808080 (light gray) to #000000 (black)
+const grayScaleMode = function () {
+   if (multiplier === 0) {
+      multiplier = 80;
+      return '#000000';
+   }
+   multiplier--;
+   return `#${multiplier.toString().repeat(3)}`;
+};
 
 /////////////////////
 // Event listeners //
@@ -83,14 +93,14 @@ btnRandom.addEventListener('click', function () {
 
 // Clear sketch pad
 ///////////////////  TO DO  /////////////////////
-btnClear.addEventListener('click', function () {
-   btnClear.classList.remove('btn-clicked');
+// btnClear.addEventListener('click', function () {
+//    btnClear.classList.remove('btn-clicked');
 
-   [...playingField.children].map(child => {
-      currentMode = '';
-      child.style.backgroundColor = '';
-   });
-});
+//    [...playingField.children].map(child => {
+//       currentMode = '';
+//       child.style.backgroundColor = '';
+//    });
+// });
 
 ///////////////////  TO DO  /////////////////////
 // Handle menu button clicks and store current button class as a variable
