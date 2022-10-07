@@ -131,7 +131,6 @@ button:active {
 }
 /* Footer styling */
 footer {
-   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    text-align: center;
    display: flex;
    padding-top: 10px;
