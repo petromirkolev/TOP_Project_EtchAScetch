@@ -1,3 +1,1 @@
-# TOP Project Etch a Sketch
-
-The purpose of the project is to practice DOM interaction skills.
+# TOP_Project_EtchAScetch
